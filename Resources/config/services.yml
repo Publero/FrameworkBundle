@@ -1,0 +1,17 @@
+services:
+    publero.form.type.gender:
+        class: Publero\FrameworkBundle\Form\Type\GenderType
+        tags:
+            - { name: form.type, alias: gender }
+
+    annotations.reader:
+        class: Publero\FrameworkBundle\Annotations\ContainerParameterParsingReader
+        arguments: [ '%annotations.reader.class%' ]
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+
+    publero.manager.base:
+        class: Publero\FrameworkBundle\Manager\BaseManager
+        calls:
+            - [ setDoctrine, [ "@doctrine" ] ]
+        abstract: true

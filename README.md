@@ -1,0 +1,1 @@
+Publero Symfony FrameworkBundle

@@ -1,0 +1,5 @@
+form:
+    gender:
+        label: Pohlaví
+        male: Muž
+        female: Žena
