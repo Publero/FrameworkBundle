@@ -1,0 +1,20 @@
+{
+    "name": "publero/framework-bundle",
+    "type": "symfony-bundle",
+    "description": "Publero Framework Bundle",
+    "keywords": ["Framework"],
+    "homepage": "http://",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Publero s.r.o.",
+            "email": "info@publero.com",
+            "homepage": "https://www.publero.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Publero\\FrameworkBundle": "" }
+    },
+    "target-dir": "Publero/FrameworkBundle",
+    "minimum-stability": "dev"
+}
