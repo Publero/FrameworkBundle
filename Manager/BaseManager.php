@@ -3,6 +3,7 @@ namespace Publero\FrameworkBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class BaseManager
 {
@@ -12,12 +13,9 @@ class BaseManager
     private $doctrine;
 
     /**
-     * @return Registry
+     * @var EventDispatcherInterface
      */
-    public function getDoctrine()
-    {
-        return $this->doctrine;
-    }
+    private $eventDispatcher;
 
     /**
      * @param Registry $doctrine
@@ -28,11 +26,35 @@ class BaseManager
     }
 
     /**
+     * @return Registry
+     */
+    public function getDoctrine()
+    {
+        return $this->doctrine;
+    }
+
+    /**
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
+    /**
+     * @return EventDispatcherInterface
+     */
+    public function getEventDispatcher()
+    {
+        return $this->eventDispatcher;
+    }
+
+    /**
      * @return EntityManager
      */
     public function getEntityManager()
     {
-        return $this->doctrine->getEntityManager();
+        return $this->doctrine->getManager();
     }
 
     /**
