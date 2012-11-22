@@ -70,6 +70,14 @@ class BaseController extends Controller
     }
 
     /**
+     * @return \Symfony\Component\HttpKernel\Debug\ContainerAwareTraceableEventDispatcher
+     */
+    public function getEventDispatcher()
+    {
+        return $this->get('event_dispatcher');
+    }
+
+    /**
      * Redirects to specified URL, but preserves some query parameters form this request
      * Which are they is defined in configuration.
      * Query parameters in URL override preserved ones if they have same name.
