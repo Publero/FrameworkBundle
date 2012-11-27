@@ -54,7 +54,7 @@ class BaseManager
      */
     public function getEntityManager()
     {
-        return $this->doctrine->getManager();
+        return $this->doctrine->getEntityManager();
     }
 
     /**
