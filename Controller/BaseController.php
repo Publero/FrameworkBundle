@@ -78,6 +78,14 @@ class BaseController extends Controller
     }
 
     /**
+     * @return \Symfony\Component\Translation\Translator
+     */
+    public function getTranslator()
+    {
+        return $this->get('translator');
+    }
+
+    /**
      * Redirects to specified URL, but preserves some query parameters form this request
      * Which are they is defined in configuration.
      * Query parameters in URL override preserved ones if they have same name.
