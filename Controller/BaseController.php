@@ -107,7 +107,7 @@ class BaseController extends Controller
      */
     public function transChoice($id, $number, array $parameters = array(), $domain = 'messages', $locale = null)
     {
-        return $this->getTranslator()->trans($id, $number, $parameters, $domain, $locale);
+        return $this->getTranslator()->transChoice($id, $number, $parameters, $domain, $locale);
     }
 
     /**
