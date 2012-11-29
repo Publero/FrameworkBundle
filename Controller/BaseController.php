@@ -78,6 +78,39 @@ class BaseController extends Controller
     }
 
     /**
+     * @return \Symfony\Component\Translation\Translator
+     */
+    public function getTranslator()
+    {
+        return $this->get('translator');
+    }
+
+    /**
+     * @param string $id
+     * @param array $parameters
+     * @param string $domain
+     * @param string $locale
+     * @return string
+     */
+    public function trans($id, array $parameters = array(), $domain = 'messages', $locale = null)
+    {
+        return $this->getTranslator()->trans($id, $parameters, $domain, $locale);
+    }
+
+    /**
+     * @param int $id
+     * @param number $number
+     * @param array $parameters
+     * @param string $domain
+     * @param string $locale
+     * @return string
+     */
+    public function transChoice($id, $number, array $parameters = array(), $domain = 'messages', $locale = null)
+    {
+        return $this->getTranslator()->transChoice($id, $number, $parameters, $domain, $locale);
+    }
+
+    /**
      * Redirects to specified URL, but preserves some query parameters form this request
      * Which are they is defined in configuration.
      * Query parameters in URL override preserved ones if they have same name.
