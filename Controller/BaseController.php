@@ -86,6 +86,31 @@ class BaseController extends Controller
     }
 
     /**
+     * @param string $id
+     * @param array $parameters
+     * @param string $domain
+     * @param string $locale
+     * @return string
+     */
+    public function trans($id, array $parameters = array(), $domain = 'messages', $locale = null)
+    {
+        return $this->getTranslator()->trans($id, $parameters, $domain, $locale);
+    }
+
+    /**
+     * @param int $id
+     * @param number $number
+     * @param array $parameters
+     * @param string $domain
+     * @param string $locale
+     * @return string
+     */
+    public function transChoice($id, $number, array $parameters = array(), $domain = 'messages', $locale = null)
+    {
+        return $this->getTranslator()->trans($id, $number, $parameters, $domain, $locale);
+    }
+
+    /**
      * Redirects to specified URL, but preserves some query parameters form this request
      * Which are they is defined in configuration.
      * Query parameters in URL override preserved ones if they have same name.
