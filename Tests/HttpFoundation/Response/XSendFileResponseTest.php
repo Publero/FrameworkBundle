@@ -125,14 +125,6 @@ class XSendFileResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($contentDisposiotionHeader);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetFileNameInvalid()
-    {
-        $this->response->setFileName('invalid file name &');
-    }
-
     public function testSetForceSaveTrue()
     {
         $this->response->setForceSave(true);

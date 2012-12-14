@@ -37,7 +37,7 @@ class BaseManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->doctrineMock
             ->expects($this->once())
-            ->method('getEntityManager')
+            ->method('getManager')
             ->will($this->returnValue($object))
         ;
 
