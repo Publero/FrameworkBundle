@@ -95,8 +95,6 @@ class XSendFileResponse extends Response
     {
         if (empty($fileName)) {
             $this->headers->remove(self::CONTENT_DISPOSITION_HEADER_NAME);
-        } elseif (!preg_match('/^[-_a-zA-Z0-9\\.\\/]+$/', $fileName)) {
-            throw new \InvalidArgumentException('file name');
         } else {
             $name = self::CONTENT_DISPOSITION_HEADER_NAME;
             $composition = sprintf('attachment; filename="%s"', $fileName);
