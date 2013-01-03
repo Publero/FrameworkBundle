@@ -17,7 +17,7 @@ class BaseHandlerTest extends \PHPUnit_Framework_TestCase
     private $request;
 
     /**
-     * @var BaseHnadler
+     * @var BaseHandler
      */
     private $handler;
 
@@ -80,5 +80,20 @@ class BaseHandlerTest extends \PHPUnit_Framework_TestCase
         $this->handler->setEventDispatcher($eventDispatcher);
 
         $this->assertSame($eventDispatcher, $this->handler->getEventDispatcher());
+    }
+
+    public function testSetAndGetForm()
+    {
+        $this->assertSame($this->formMock, $this->handler->getForm());
+
+        $anotherFormMock = $this
+            ->getMockBuilder('Symfony\Component\Form\Form')
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $this->handler->setForm($anotherFormMock);
+
+        $this->assertSame($anotherFormMock, $this->handler->getForm());
     }
 }

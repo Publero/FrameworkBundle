@@ -28,7 +28,7 @@ class BaseHandler
      */
     protected $entityManager;
 
-    public function __construct(FormInterface $form)
+    public function __construct(FormInterface $form = null)
     {
         $this->form = $form;
     }
@@ -39,6 +39,14 @@ class BaseHandler
     public function getForm()
     {
         return $this->form;
+    }
+
+    /**
+     * @param FormInterface $form
+     */
+    public function setForm(FormInterface $form)
+    {
+        $this->form = $form;
     }
 
     /**
