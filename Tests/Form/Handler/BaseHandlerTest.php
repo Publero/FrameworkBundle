@@ -94,6 +94,6 @@ class BaseHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->handler->setForm($anotherFormMock);
 
-        $this->assertSame($this->formMock, $this->handler->getForm());
+        $this->assertSame($anotherFormMock, $this->handler->getForm());
     }
 }
