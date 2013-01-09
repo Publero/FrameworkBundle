@@ -111,6 +111,19 @@ class BaseController extends Controller
     }
 
     /**
+     * @param string $route
+     * @param array $params
+     * @param bool $absolute
+     * @param int $status
+     */
+    public function redirectRoute($route, array $parameters = [], $absolute = false, $status = 302)
+    {
+        $url = $this->generateUrl($route, $parameters, $absolute);
+
+        return $this->redirect($url, $status);
+    }
+
+    /**
      * Redirects to specified URL, but preserves some query parameters form this request
      * Which are they is defined in configuration.
      * Query parameters in URL override preserved ones if they have same name.

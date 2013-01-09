@@ -77,7 +77,7 @@ class BaseHandler
     }
 
     /**
-     * @param FormInterface $formType
+     * @param FormInterface $form
      */
     public function setForm(FormInterface $form)
     {
