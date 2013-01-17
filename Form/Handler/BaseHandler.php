@@ -1,10 +1,13 @@
 <?php
 namespace Publero\FrameworkBundle\Form\Handler;
 
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\Request;
 
 class BaseHandler
 {
@@ -12,6 +15,16 @@ class BaseHandler
      * @var FormInterface
      */
     protected $form;
+
+    /**
+     * @var FormTypeInterface
+     */
+    private $formType;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
 
     /**
      * @var Request
@@ -24,20 +37,42 @@ class BaseHandler
     protected $eventDispatcher;
 
     /**
-     * @var EntityManager
+     * @var Registry
      */
-    protected $entityManager;
+    protected $doctrine;
 
-    public function __construct(FormInterface $form = null)
+    /**
+     * @param FormInterface|FormTypeInterface $form
+     */
+    public function __construct($form = null)
     {
-        $this->form = $form;
+        if ($form instanceof FormInterface) {
+            $this->setForm($form);
+        } elseif ($form instanceof FormTypeInterface) {
+            $this->setFormType($form);
+        } elseif ($form !== null) {
+            throw new \InvalidArgumentException('form');
+        }
     }
 
     /**
+     * Returns a form.
+     *
+     * If form instance has been set, it's returned directly.
+     * If form type has been set instead, a form is built (form the type) and stored for future usage with this handler.
+     * Any further changes to type will have no effect on form.
+     *
      * @return FormInterface
      */
     public function getForm()
     {
+        if ($this->form === null && $this->formType !== null) {
+            if ($this->getFormFactory() === null) {
+                throw new \BadMethodCallException("can't build a Form from FormType without FormFactory");
+            }
+            $this->form = $this->getFormFactory()->create($this->getFormType());
+        }
+
         return $this->form;
     }
 
@@ -47,6 +82,38 @@ class BaseHandler
     public function setForm(FormInterface $form)
     {
         $this->form = $form;
+    }
+
+    /**
+     * @return FormTypeInterface
+     */
+    public function getFormType()
+    {
+        return $this->formType;
+    }
+
+    /**
+     * @param FormTypeInterface $formType
+     */
+    public function setFormType(FormTypeInterface $formType)
+    {
+        $this->formType = $formType;
+    }
+
+    /**
+     * @return FormFactoryInterface
+     */
+    public function getFormFactory()
+    {
+        return $this->formFactory;
+    }
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     */
+    public function setFormFactory(FormFactoryInterface $formFactory)
+    {
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -82,11 +149,19 @@ class BaseHandler
     }
 
     /**
-     * @param EntityManager $entityManager
+     * @param Registry $doctrine
      */
-    public function setEntityManager(EntityManager $entityManager)
+    public function setDoctrine(Registry $doctrine)
     {
-        $this->entityManager = $entityManager;
+        $this->doctrine = $doctrine;
+    }
+
+    /**
+     * @return Registry
+     */
+    public function getDoctrine()
+    {
+        return $this->doctrine;
     }
 
     /**
@@ -94,7 +169,7 @@ class BaseHandler
      */
     public function getEntityManager()
     {
-        return $this->entityManager;
+        return $this->getDoctrine()->getEntityManager();
     }
 
     /**
@@ -110,13 +185,23 @@ class BaseHandler
      */
     public function process()
     {
-        $this->form->bind($this->request);
+        $this->preBind();
+        $this->getForm()->bind($this->request);
 
+        $this->preValidate();
         if ($this->form->isValid()) {
             return $this->onValid();
         }
 
         return $this->onInvalid();
+    }
+
+    protected function preBind()
+    {
+    }
+
+    protected function preValidate()
+    {
     }
 
     /**
