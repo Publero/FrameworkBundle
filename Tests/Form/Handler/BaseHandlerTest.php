@@ -1,9 +1,8 @@
 <?php
 namespace Publero\FrameworkBundle\Tests\Form\Handler;
 
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-
 use Publero\FrameworkBundle\Form\Handler\BaseHandler;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 
 class BaseHandlerTest extends \PHPUnit_Framework_TestCase
