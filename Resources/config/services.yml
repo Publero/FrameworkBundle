@@ -16,3 +16,19 @@ services:
             - [ setDoctrine, [ "@doctrine" ] ]
             - [ setEventDispatcher, [ "@event_dispatcher" ] ]
         abstract: true
+
+    publero.form.handler.base:
+        class: Publero\FrameworkBundle\Form\Handler\BaseHandler
+        calls:
+            - [ 'setFormFactory', [ '@form.factory' ] ]
+            - [ 'setRequest', [ '@request' ] ]
+            - [ 'setEventDispatcher', [ '@event_dispatcher' ] ]
+            - [ 'setDoctrine', [ '@doctrine' ] ]
+        abstract: true
+
+    publero.form.handler.security_context:
+        parent: nasadvokat.form.base_handler
+        class: Publero\FrameworkBundle\Form\Handler\SecurityContextHandler
+        calls:
+            - [ 'setSecurityContext', [ '@security.context' ] ]
+        abstract: true
