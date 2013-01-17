@@ -60,7 +60,7 @@ class BaseHandler
      *
      * If form instance has been set, it's returned directly.
      * If form type has been set instead, a form is built (form the type) and stored for future usage with this handler.
-     * Ant further changes to type will have no effect on form.
+     * Any further changes to type will have no effect on form.
      *
      * @return FormInterface
      */
@@ -68,7 +68,7 @@ class BaseHandler
     {
         if ($this->form === null && $this->formType !== null) {
             if ($this->getFormFactory() === null) {
-                throw new \InvalidMethodCallException("can't build a Form from FormType without FormFactory");
+                throw new \BadMethodCallException("can't build a Form from FormType without FormFactory");
             }
             $this->form = $this->getFormFactory()->create($this->getFormType());
         }
