@@ -21,7 +21,7 @@ abstract class EnumType extends StringType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if (!in_array($value, $this->getValues())) {
+        if ($value !== null && !in_array($value, $this->getValues())) {
             throw new \InvalidArgumentException("Invalid '" . $this->getName() . "' value.");
         }
 
