@@ -1,8 +1,8 @@
 <?php
 namespace Publero\FrameworkBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\RedirectController as BaseController;
 
-class RedirectController extends Controller
+class RedirectController extends BaseController
 {
 }
