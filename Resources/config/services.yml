@@ -21,7 +21,6 @@ services:
         class: Publero\FrameworkBundle\Form\Handler\BaseFormHandler
         calls:
             - [ 'setFormFactory', [ '@form.factory' ] ]
-            - [ 'setRequest', [ '@request' ] ]
             - [ 'setEventDispatcher', [ '@event_dispatcher' ] ]
         abstract: true
 
