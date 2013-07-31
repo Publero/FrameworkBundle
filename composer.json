@@ -13,7 +13,16 @@
         }
     ],
     "autoload": {
-        "psr-0": { "Publero\\FrameworkBundle": "" }
+        "psr-0": {
+            "Publero\\FrameworkBundle": "",
+            "Doctrine\\Tests" : "vendor/doctrine/orm/tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.3.*",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "doctrine/orm": "2.3.*"
     },
     "target-dir": "Publero/FrameworkBundle",
     "minimum-stability": "dev"

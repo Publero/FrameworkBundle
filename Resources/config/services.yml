@@ -18,17 +18,26 @@ services:
         abstract: true
 
     publero.form.handler.base:
-        class: Publero\FrameworkBundle\Form\Handler\BaseHandler
+        class: Publero\FrameworkBundle\Form\Handler\BaseFormHandler
         calls:
             - [ 'setFormFactory', [ '@form.factory' ] ]
             - [ 'setRequest', [ '@request' ] ]
             - [ 'setEventDispatcher', [ '@event_dispatcher' ] ]
-            - [ 'setDoctrine', [ '@doctrine' ] ]
         abstract: true
 
     publero.form.handler.security_context:
-        parent: nasadvokat.form.base_handler
-        class: Publero\FrameworkBundle\Form\Handler\SecurityContextHandler
+        parent: publero.form.handler.base
+        class: Publero\FrameworkBundle\Form\Handler\SecurityContextFormHandler
         calls:
             - [ 'setSecurityContext', [ '@security.context' ] ]
+        abstract: true
+
+    publero.form.handler.base.orm:
+        parent: publero.form.handler.base
+            - [ 'setDoctrine', [ '@doctrine' ] ]
+        abstract: true
+
+    publero.form.handler.security_context.orm:
+        parent: publero.form.handler.security_context
+            - [ 'setDoctrine', [ '@doctrine' ] ]
         abstract: true
