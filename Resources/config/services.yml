@@ -34,10 +34,12 @@ services:
 
     publero.form.handler.base.orm:
         parent: publero.form.handler.base
+        calls:
             - [ 'setDoctrine', [ '@doctrine' ] ]
         abstract: true
 
     publero.form.handler.security_context.orm:
         parent: publero.form.handler.security_context
+        calls:
             - [ 'setDoctrine', [ '@doctrine' ] ]
         abstract: true
